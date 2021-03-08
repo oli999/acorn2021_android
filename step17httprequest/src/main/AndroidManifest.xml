@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.step17httprequest">
+    <!--
+        앱을 만들때
+        1. 비용이 발생하는 작업 ( 인터냇, 전화 등등)
+        2. 베터리를 많이 소모하는 작업 ( 진동 )
+        3. 개인정보를 얻어내는 작업 (연락처 정보, 겔러리 등등)
+        4. 외부 저장장치(sdcard)를 access 하는 작업
+        등은 모두 permission 을 얻어내야 한다.
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Hello"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
