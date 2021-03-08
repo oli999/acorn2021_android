@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="1.8 (2)" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/mygame" />
+            <option value="$PROJECT_DIR$/step01activity" />
+            <option value="$PROJECT_DIR$/step02layout" />
+            <option value="$PROJECT_DIR$/step03view" />
+            <option value="$PROJECT_DIR$/step04activitymove" />
+            <option value="$PROJECT_DIR$/step05activitylifecycle" />
+            <option value="$PROJECT_DIR$/step06example" />
+            <option value="$PROJECT_DIR$/step06listener" />
+            <option value="$PROJECT_DIR$/step07example" />
+            <option value="$PROJECT_DIR$/step07listview" />
+            <option value="$PROJECT_DIR$/step08customadapter" />
+            <option value="$PROJECT_DIR$/step09fragment" />
+            <option value="$PROJECT_DIR$/step10viewpager" />
+            <option value="$PROJECT_DIR$/step10viewpager2" />
+            <option value="$PROJECT_DIR$/step11bottomnavi" />
+            <option value="$PROJECT_DIR$/step12customview" />
+            <option value="$PROJECT_DIR$/step12gameview" />
+            <option value="$PROJECT_DIR$/step13broadcastreceiver" />
+            <option value="$PROJECT_DIR$/step14sharedpref" />
+            <option value="$PROJECT_DIR$/step15sqlite" />
+            <option value="$PROJECT_DIR$/step16asynctask" />
+            <option value="$PROJECT_DIR$/step17example" />
+            <option value="$PROJECT_DIR$/step17httprequest" />
+            <option value="$PROJECT_DIR$/step18googlemap" />
+            <option value="$PROJECT_DIR$/step19webview" />
+            <option value="$PROJECT_DIR$/step19webview2" />
+            <option value="$PROJECT_DIR$/test" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
