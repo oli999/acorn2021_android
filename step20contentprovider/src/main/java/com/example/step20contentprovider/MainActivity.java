@@ -18,7 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    EditText console;
+    EditText console, inputName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button getBtn=findViewById(R.id.getBtn);
         getBtn.setOnClickListener(this);
         console=findViewById(R.id.console);
+        inputName=findViewById(R.id.inputName);
     }
 
     @Override
@@ -70,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     //ContentProvider 에게서 ContentResolver 객체를 이용해서 연락처 정보를 얻어내는 메소드
     public void getContacts(){
+        //입력한 검색어
+        String keyword=inputName.getText().toString().trim();
+
         //ContentResolver 객체의 참조값 얻어오기
         ContentResolver resolver=getContentResolver();
         //연락처 정보를 지칭할수있는 Uri 객체의 참조값 얻어오기
@@ -81,19 +85,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
         };
 
-        // where display_name = '김구라'
-        //String where=ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+
-        //        " = ? ";
+        // where display_name like '%키워드%'
+        String where=ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+
+               " LIKE ? ";
         // order by contact_id asc
         String order=ContactsContract.CommonDataKinds.Phone.CONTACT_ID+" ASC";
 
-        //String[] args={"김구라"};
+        String[] args={"%"+keyword+"%"};
 
         //원하는 정보를 얻어낸다.
         Cursor cursor=resolver.query(contactUri,   //table name
                 columns,  //column name
-                null,  // where
-                null,  // selection args
+                where,  // where
+                args,  // selection args
                 order); // order by
         //반복문 돌면서 Cursor 에서 데이터 얻어내기
         while (cursor.moveToNext()){
