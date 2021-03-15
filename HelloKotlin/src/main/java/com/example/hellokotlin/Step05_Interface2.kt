@@ -2,8 +2,12 @@ package com.example.hellokotlin
 
 interface Computer{
     fun calc()
-}
+    }
 
+/*
+        in  java  =>  implements Computer
+        in  kotlin =>  : Computer
+ */
 class MyComputer : Computer{
     override fun calc() {
        println("내 컴퓨터가 무언가를 계산해요")
@@ -12,6 +16,10 @@ class MyComputer : Computer{
 
 fun main(){
     //MyComputer 객체의 다형성 확인
+    /*
+        in java => Object
+        in kotlin => Any
+     */
     val c1:Any = MyComputer()
     val c2:Computer = MyComputer()
     val c3:MyComputer = MyComputer()

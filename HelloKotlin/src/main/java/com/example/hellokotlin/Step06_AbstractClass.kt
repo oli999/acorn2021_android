@@ -7,7 +7,10 @@ abstract class Weapon{
     }
     abstract fun attack()
 }
-
+/*
+    in java  =>  extends Weapon
+    in koltin =>  : Weapon()
+ */
 class MyWeapon:Weapon(){
     override fun attack() {
         println("무언가를 공격해요!")
