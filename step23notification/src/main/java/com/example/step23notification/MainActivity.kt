@@ -30,13 +30,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         //버튼의 참조값 얻어와서 리스너 등록
         val notiBtn: Button =findViewById(R.id.notiBtn)
         notiBtn.setOnClickListener(this)
+
+        val notiBtn2: Button = findViewById(R.id.notiBtn2)
+        notiBtn2.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         //입력한 문자열을 읽어와서
         var msg=inputMsg.text.toString().trim()
-        //알림 띄우기
-        makeAutoCancelNoti(msg)
+        when(v?.id){
+            R.id.notiBtn -> makeAutoCancelNoti(msg)
+            R.id.notiBtn2 -> makeManualCancelNoti(msg)
+        }
     }
     //인자로 전달되는 문자열을 알림에 띄우는 함수
     fun makeAutoCancelNoti(msg:String){
@@ -95,6 +100,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         //이 앱의 알림 체널 만들기
         createNotificationChannel()
 
+        // 1970 년 1월 1일 0 시 이후 경과된 초를 정수로 얻어내기
         val currentId:Int = (System.currentTimeMillis()/1000).toInt()
 
         //알림을 클릭했을때 실행할 Activity 정보를 가지고 있는 Intent 객체
