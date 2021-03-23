@@ -3,6 +3,10 @@ package com.example.step24fileupload;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity
                             implements View.OnClickListener{
     //필드
     ImageView imageView;
+    //이미지가 위치한 절대경로
+    String imagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +114,8 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 //카메라 앱을 찾아서 실행한다.
                 startActivityForResult(intent, 999);
+                //이미지경로를 필드에 저장한다.
+                imagePath=photoFile.getAbsolutePath();
             }catch (Exception e){
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -124,10 +133,62 @@ public class MainActivity extends AppCompatActivity
                 case 999:
                     //실행순서가 여기까지 들어온다면 사진은 성공적으로 우리가 원하는 위치에 저장이됨
                     //저장된 이미지를 ImageView 에 출력하기
-
+                    fitToImageView(imageView, imagePath);
                     break;
             }
+        }else{
+            Toast.makeText(this,"작업 실패!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //이미지 뷰의 크기에 맞게 이미지를 출력하는 메소드
+    public static void fitToImageView(ImageView imageView, String absolutePath){
+        //출력할 이미지 뷰의 크기를 얻어온다.
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(absolutePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(absolutePath, bmOptions);
+        /* 사진이 세로로 촬영했을때 회전하지 않도록 */
+        try {
+            ExifInterface ei = new ExifInterface(absolutePath);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            switch(orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    bitmap = rotateImage(bitmap, 90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    bitmap = rotateImage(bitmap, 180);
+                    break;
+                // etc.
+            }
+        }catch(IOException ie){
+            Log.e("####", ie.getMessage());
+        }
+
+        imageView.setImageBitmap(bitmap);
+    }
+    //Bitmap 이미지 회전시켜서 리턴하는 메소드
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
     }
 }
 

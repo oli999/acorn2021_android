@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-    <ImageView
+    <com.example.step24fileupload.TouchImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
