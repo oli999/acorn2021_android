@@ -193,7 +193,7 @@ public class Util {
             // creates a unique boundary based on time stamp
             boundary = "===" + System.currentTimeMillis() + "===";
             charset="utf-8";
-            fileParamName="myFile"; // <input type="file" name="myFile"/>
+            fileParamName="image"; // <input type="file" name="image"/>
         }
         public void setRequestId(int requestId) {
             this.requestId = requestId;

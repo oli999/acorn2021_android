@@ -27,9 +27,11 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
-                            implements View.OnClickListener{
+                            implements View.OnClickListener, Util.RequestListener{
     //필드
     ImageView imageView;
     //이미지가 위치한 절대경로
@@ -66,7 +68,19 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case R.id.uploadBtn:
-
+                String writer="김구라";
+                String caption="안드로이드에서 촬영한 이미지";
+                //웹서버에 요청할 url 주소
+                String url="http://192.168.0.17:8888/spring05/gallery/upload_android.do";
+                //요청 파라미터를 Map 에 담는다.
+                Map<String, String> params=new HashMap<>();
+                params.put("writer", writer);
+                params.put("caption", caption);
+                Util.sendMultipartRequest(1, //요청의 아이디
+                        url,  //요청 url
+                        params,  //요청 파라미터
+                        imagePath, //업로드할 이미지의 절대 경로
+                        this); //요청 결과를 받아볼 리스너 등록
                 break;
         }
     }
@@ -189,6 +203,19 @@ public class MainActivity extends AppCompatActivity
         retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
 
         return retVal;
+    }
+
+    @Override
+    public void onSuccess(int requestId, Map<String, Object> result) {
+        //서버가 응답한 문자열을 읽어와서
+        String data=(String)result.get("data");
+        //Toast 로 띄우기
+        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFail(int requestId, Map<String, Object> result) {
+        Toast.makeText(this, "업로드 실패!", Toast.LENGTH_SHORT).show();
     }
 }
 
