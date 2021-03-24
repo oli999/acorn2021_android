@@ -31,12 +31,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener { // extends AppC
         //Button 의 참조값 얻어와서 리스너 등록
         val sendBtn2:Button = findViewById(R.id.sendBtn2)
         //익명의 inner class 를 이용해서 리스너 등록
+        /*
         sendBtn2.setOnClickListener(object:View.OnClickListener{
             override fun onClick(v: View?) {
                 val msg=inputMsg?.text.toString()
                 console.setText(msg)
             }
         })
+        */
+        sendBtn2.setOnClickListener {
+            val msg=inputMsg?.text.toString()
+            console.setText(msg)
+        }
+
         //이동하기 버튼
         val moveBtn:Button = findViewById(R.id.moveBtn)
         moveBtn.setOnClickListener(object:View.OnClickListener{
