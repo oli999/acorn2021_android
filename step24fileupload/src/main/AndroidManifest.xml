@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.step24fileupload">
-
     <!-- 촬영한 사진을 외부 저장 장치에 저장하기 위한 퍼미션 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- 업로드할때 인터넷 자원을 사용하기 위한 퍼미션 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- 새로 추가 해야하는 설정 (지들 맘대로 바꾸는 설정 ㅜㅜ)-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 업로드할때 인터넷 자원을 사용하기 위한 퍼미션 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 새로 추가 해야하는 설정 (지들 맘대로 바꾸는 설정 ㅜㅜ) -->
     <queries>
         <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE"/>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
     </queries>
 
@@ -21,23 +18,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hello"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity android:name=".GalleryListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- ContentProvider(FileProvider) 등록 -->
+        <activity android:name=".MainActivity">
+
+        </activity> <!-- ContentProvider(FileProvider) 등록 -->
         <provider
-            android:authorities="com.example.step24fileupload.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.step24fileupload.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"/>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
         </provider>
-
     </application>
 
 </manifest>
